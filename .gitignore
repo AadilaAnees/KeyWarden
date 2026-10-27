@@ -1,0 +1,14 @@
+.secrets/
+.env
+*.env
+*.key
+*.pem
+*.snap
+unseal*
+node_modules/
+dist/
+__pycache__/
+.venv/
+.DS_Store
+Thumbs.db
+.idea/

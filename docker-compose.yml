@@ -1,0 +1,24 @@
+services:
+  openbao:
+    image: openbao/openbao:2.6.2
+    command: server
+    ports:
+      - "127.0.0.1:8200:8200"
+    environment:
+      BAO_ADDR: "http://127.0.0.1:8200"
+    volumes:
+      - ./infra/openbao/config:/openbao/config:ro
+      - bao-data:/openbao/file
+      - bao-logs:/openbao/logs
+    mem_limit: 512m
+    memswap_limit: 512m
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8200/v1/sys/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  bao-data:
+  bao-logs:
